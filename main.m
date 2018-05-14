@@ -3,7 +3,7 @@ clear; clc;
 %
 %% algorithm %%
 [x_train,y_train,x_valid,y_valid] = createDataset('train_feat.csv', 'train_label.csv','valid_feat.csv', 'valid_label.csv');
-
+a = redistribute(x_train,y_train);
 %% training 
 model= algorithm(x_train, y_train);
 
