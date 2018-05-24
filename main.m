@@ -3,7 +3,11 @@ clear; clc;
 %
 %% algorithm %%
 [x_train,y_train,x_valid,y_valid] = createDataset('train_feat.csv', 'train_label.csv','valid_feat.csv', 'valid_label.csv');
-a = redistribute(x_train,y_train);
+a = redistribute(y_train);
+[coeff,score,latent]=pca(x_train(:,a)');
+latent_por=latent/sum(latent);
+coeff=coeff(:,1:find(latent_por<0.05,1));
+score=score(:,1:find(latent_por<0.05,1));
 %% training 
 model= algorithm(x_train, y_train);
 
