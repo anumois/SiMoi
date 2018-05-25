@@ -1,0 +1,23 @@
+function [newtestset] = redistribute(trainX,trainLabel)
+
+% Element per Label
+EpL = 200;
+
+newtestset = zeros(1, EpL * 10);
+
+[~,sumIndex] = sort(trainLabel,'ascend');
+indexNum=zeros(10,1);
+
+for ii=1:10
+    indexNum(ii)=sum(length(find(trainLabel==ii)));
+end
+
+for ii = 1:10
+    curIndex = 0;
+    for j = 1:EpL
+        newtestset(EpL*(i-1) + j) = sumIndex(curIndex + randi(indexNum(i)));
+    end
+    curIndex = curIndex + indexNum(i);
+end
+
+end
