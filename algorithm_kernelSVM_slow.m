@@ -1,8 +1,5 @@
 %% your classifer traing code here
-function [model] = algorithm_kernelSVM_slow(x_train, y_train,T,l,sig)
-    [coeff,score,latent]=pca(x_train');
-    latent_por=latent/sum(latent);
-    coeff=coeff(:,1:find(latent_por<0.05,1));
+function [model] = algorithm_kernelSVM_slow(comp,score, y_train,T,l,sig)
     score=score(:,1:find(latent_por<0.05,1));
     tags=unique(y_train);
     model.alpha=zeros(length(y_train),9);
@@ -10,9 +7,7 @@ function [model] = algorithm_kernelSVM_slow(x_train, y_train,T,l,sig)
     model.structure(1).O=1:length(tags);
     PG_list=[]; NG_list=[];
     for ii=1:length(tags)-1
-        ii
         for indx=1:2^(length(model.structure(ii).O)-1)-1
-            indx
             p_n=zeros(length(model.structure(ii).O),1);
             n_n=zeros(length(model.structure(ii).O),1);
             cnt=indx;
@@ -48,7 +43,6 @@ function [model] = algorithm_kernelSVM_slow(x_train, y_train,T,l,sig)
                     b(active_indx(jj))=b(active_indx(jj))+y_train_temp(jj);
                 end
             end
-            temp_err=0;
             pred=svmkernel(score_temp,score_temp,sig)*sum(a(active_indx,:),2)/T;
             pred=1-((pred>0 & y_train_temp>0) | (pred<0 & y_train_temp<0));
             temp_err=sum(pred);
@@ -84,5 +78,5 @@ function [model] = algorithm_kernelSVM_slow(x_train, y_train,T,l,sig)
         model.alpha(:,ii)=winner.a;
     end
     % Averaging alpha 
-    model.coeff=coeff;
+    model.coeff=comp;
 end

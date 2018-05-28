@@ -1,9 +1,5 @@
 %% your classifer traing code here
-function [model] = algorithm_kernelSVM_quick(x_train, y_train,T,l,sig)
-    [coeff,score,latent]=pca(x_train');
-    latent_por=latent/sum(latent);
-    coeff=coeff(:,1:find(latent_por<0.05,1));
-    score=score(:,1:find(latent_por<0.05,1));
+function [model] = algorithm_kernelSVM_quick(comp,score, y_train,T,l,sig)
     model.alpha=zeros(length(y_train),9);
     model.structure=struct;
     model.structure(1).O=1:10;
@@ -53,5 +49,5 @@ function [model] = algorithm_kernelSVM_quick(x_train, y_train,T,l,sig)
         model.alpha(:,ii)=temp_a(:,I);
     end
     % Averaging alpha 
-    model.coeff=coeff;
+    model.coeff=comp;
 end

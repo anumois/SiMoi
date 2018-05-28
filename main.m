@@ -13,9 +13,10 @@ y_train=y_train(y_train<cri+1);
 x_valid=x_valid(:,y_valid<cri+1);
 y_valid=y_valid(y_valid<cri+1);
 a = redistribute(y_train,EpL,cri);
+[PCA_comp, PCA_score]=PCA_part(x_train(:,a));
 %% training 
-% model= algorithm_kernelSVM_quick(x_train(:,a), y_train(a),T,l,sig);
-model= algorithm_kernelSVM_slow(x_train(:,a), y_train(a),T,l,sig);
+model= algorithm_kernelSVM_quick(PCA_comp, PCA_score, y_train(a),T,l,sig);
+%model= algorithm_kernelSVM_slow(PCA_comp, PCA_score, y_train(a),T,l,sig);
 %% validation 
 [valid_p] = validation_kernelSVM(model, x_valid, x_train(:,a),sig);
 
