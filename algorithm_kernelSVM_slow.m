@@ -1,6 +1,5 @@
 %% your classifer traing code here
 function [model] = algorithm_kernelSVM_slow(comp,score, y_train,T,l,sig)
-    score=score(:,1:find(latent_por<0.05,1));
     tags=unique(y_train);
     model.alpha=zeros(length(y_train),9);
     model.structure=struct;
