@@ -1,0 +1,18 @@
+function [net, pred] = feed_foward(input, net)
+    %tanh function for activation
+    function x = activation_function(input)        
+        x = tanh(input);
+    end
+
+    net.layer{1,1} = input;
+    for index_layer = 2 : net.layer_num
+          net.layer{index_layer, 1} = net.weight{index_layer, 1} * net.layer{index_layer-1, 1} + net.bias{index_layer, 1};
+          net.layer{index_layer, 1} = activation_function(net.layer{index_layer, 1});
+    end
+
+    [~,ind] = max(net.layer{index_layer, 1});
+    pred = zeros(size(net.layer{index_layer, 1}));
+    for i=1:size(ind,2)
+    pred(ind(i),i) = 1;
+    end
+end

@@ -2,7 +2,7 @@ function [newtestset] = redistribute(trainLabel,EpL,cri)
 
 % Element per Label
 indexNum=zeros(cri,1);
-newtestset = zeros(1, EpL * length(indexNum));
+newtestset = zeros(1, EpL * cri);
 
 [~,sumIndex] = sort(trainLabel,'ascend');
 
