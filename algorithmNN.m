@@ -1,4 +1,4 @@
-function [model] = algorithmNN(x_train, y_train, cri, comp)
+function [model] = algorithmNN(x_train, y_train, cri)
     %% data & neuron number setting    
     num_data_train = size(x_train, 1);    
     num_neuron_input = size(x_train, 2);
@@ -6,25 +6,21 @@ function [model] = algorithmNN(x_train, y_train, cri, comp)
     
     % Learning parameters    
     batch_size = 1;
-    num_neuron_hidden = 47;
+    num_neuron_hidden = 131;
     % weight initialization setting
     init.weight_std = 0.1; % stdev of weight paramters
     init.bias_std = 0.1; % stdev of bias paramters
     % training setting
-    training.num_epoch = 5; % num of epochs
-    training.learning_rate = 0.005; % learning rate
+    training.num_epoch = 10; % num of epochs
+    training.learning_rate = 0.002; % learning rate
     training.test_period = 100; % test every iteration
     
     % Initializations %
     training.current_epoch = 0;
-    num_neuron = [num_neuron_input; num_neuron_hidden; num_neuron_output]; 
-    training.num_input_graph = training.num_epoch * floor(num_data_train / training.test_period);
-    training.graph = zeros(training.num_epoch, 1);
-    training.index_graph = 0;
+    num_neuron = [num_neuron_input; num_neuron_hidden; 2*num_neuron_hidden; 3*num_neuron_hidden; 2*num_neuron_hidden; num_neuron_hidden; num_neuron_output]; 
     
     %% initialize modelwork %%
     model = initialize_network(num_neuron, init);
-    model.coeff = comp;
     k = 0;
     
         %% Training %%
@@ -43,9 +39,10 @@ function [model] = algorithmNN(x_train, y_train, cri, comp)
                 model = weight_update(model, model_update, training);
                 k = k+1;
                 % test step
-                if mod(k, training.test_period) == 0 % Test period
-                      disp(num2str(k))
+                if mod(k, training.test_period) == 0 % Test period                      
+                      disp(int2str(k))
                 end 
+                
           end
     end
 end

@@ -1,5 +1,4 @@
 function net_update = back_propagation(net, data_output)
-%% Your code here %%
     net_update = cell(size(net.weight));
     % accumulate gradient each step
     % dL/dOut = o - y

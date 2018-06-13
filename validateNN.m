@@ -1,5 +1,5 @@
 function [valid_p] = validateNN(model,x_valid)
-      x_test = model.coeff' * x_valid;
+      x_test = x_valid;      
       [~,num_data_test] = size(x_test);
       valid_p = zeros(num_data_test,1);
       for index_data_test = 1 : num_data_test
