@@ -13,10 +13,10 @@ x_valid=x_valid(:,y_valid<cri+1);
 y_valid=y_valid(y_valid<cri+1);
 a = redistribute(y_train,EpL,cri);
 %% training 
-model= algorithmNN(x_train(:,a)', y_train(a),cri, x_valid, y_valid);
+model= algorithm(x_train(:,a)', y_train(a),cri, x_valid, y_valid);
 %% validation 
-[valid_p] = validateNN(model, x_valid);
-[test_p] = validateNN(model, x_test);
+[valid_p] = validate(model, x_valid);
+[test_p] = validate(model, x_test);
 csvwrite('testOut.csv',test_p);
 %% Find Accuracy
 valid_acc =mean(y_valid== valid_p)*100;

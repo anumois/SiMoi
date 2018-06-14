@@ -1,4 +1,4 @@
-function [model] = algorithmNN(x_train, y_train, cri, x_valid, y_valid)
+function [model] = algorithm(x_train, y_train, cri, x_valid, y_valid)
     %% data & neuron number setting    
     num_data_train = size(x_train, 1);    
     num_neuron_input = size(x_train, 2);
@@ -45,7 +45,7 @@ function [model] = algorithmNN(x_train, y_train, cri, x_valid, y_valid)
                 % test step
                 if mod(k, training.test_period) == 0 % Test period                      
                       disp(int2str(k))
-                      [valid_p] = validateNN(model, x_valid);
+                      [valid_p] = validate(model, x_valid);
                       valid_acc =mean(y_valid== valid_p)*100;
                       if valid_acc > curAccuracy
                           curAccuracy = valid_acc;
