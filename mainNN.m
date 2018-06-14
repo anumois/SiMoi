@@ -1,7 +1,7 @@
 clear; clc;
 %% your parameter here%%
 l=1; %slack value
-EpL = 1000; % Number of minimum data
+EpL = 1200; % Number of minimum data
 cri=10; % For the fast code validity tests. cri means y_train = 1~cri data are used.
 % Decision structre is also exist as hyper parameter
 %% algorithm %%
@@ -13,7 +13,7 @@ x_valid=x_valid(:,y_valid<cri+1);
 y_valid=y_valid(y_valid<cri+1);
 a = redistribute(y_train,EpL,cri);
 %% training 
-model= algorithmNN(x_train(:,a)', y_train(a),cri);
+model= algorithmNN(x_train(:,a)', y_train(a),cri, x_valid, y_valid);
 %% validation 
 [valid_p] = validateNN(model, x_valid);
 [test_p] = validateNN(model, x_test);
